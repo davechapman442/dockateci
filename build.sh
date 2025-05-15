@@ -21,43 +21,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Default rule (all)
-all:
+# Build runes for RDK-B (2025q1) for the Banana Pi (ref platform) NAND build (SDCARD at some point)
+# We'll turn this into a makefile with variables, defaults, warnings and perhaps input if not set!
 
-# Set build folder and Dockerfile name
-WORKDIR ?= ${PWD}/Builds
-DOCKERFILE := Dockerfile
+# You don't necessary want to run this script, but good for reference
 
-# Setup and build files
-SETUP := ${WORKDIR}/setup.sh ${WORKDIR}/build.sh
-
-${WORKDIR}:
-	mkdir -p ${WORKDIR}
-
-${WORKDIR}/setup.sh: ${WORKDIR}
-	cp setup.sh ${WORKDIR}
-
-${WORKDIR}/build.sh: ${WORKDIR}
-	cp build.sh ${WORKDIR}
-
-# Dockerfile from template, just a copy for now may have subfiles/templates later
-# Copies license header too which might not be ideal (meh)
-${DOCKERFILE}: Dockerfile.template
-	cp $< $@
-
-# Convenience target (You don't have to use this, just copy the command if preferred)
-image: ${DOCKERFILE}
-	docker build -t rdkb-ubuntu-20-04 .
-
-# Convenience target (You don't have to use this, just copy the command if preferred)
-run: ${WORKDIR}
-	docker run -it --rm --mount type=bind,src=${WORKDIR},dst=/home/rdkb/Builds rdkb-ubuntu-20-04
-
-# Clean it all up!
-clean:
-	rm -rf ${WORKDIR} ${DOCKERFILE}
-
-# Build docker file and setup host Build folder to be bind mounted to container
-all: ${DOCKERFILE} ${SETUP}
-
-
+# Grab the manifest
+repo init -u https://code.rdkcentral.com/r/rdkcmf/manifests -b rdkb-2025q1-kirkstone -m rdkb-bpi-extsrc.xml
+# Checkout build essentials (Yocto 4.0 from OpenEmbedded) and bitbake recipes for everything else
+repo sync -j`nproc` --no-clone-bundle
+# Set the build config & build with bitbake
+MACHINE=bananapi4-rdk-broadband BPI_IMG_TYPE=nand source meta-cmf-bananapi/setup-environment-refboard-rdkb
+bitbake rdk-generic-broadband-image

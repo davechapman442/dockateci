@@ -21,43 +21,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Default rule (all)
-all:
+# Setup container environment for builds
+# We'll turn this into a makefile with variables, defaults, warnings and perhaps input if not set!
 
-# Set build folder and Dockerfile name
-WORKDIR ?= ${PWD}/Builds
-DOCKERFILE := Dockerfile
+# Set git config (please supply your user name and email, example below)
+git config --global user.name  "Fred Bloggs"
+git config --global user.email "fred.bloggs@bloggs.com"
 
-# Setup and build files
-SETUP := ${WORKDIR}/setup.sh ${WORKDIR}/build.sh
+# Set your netrc for rdkcentral login
+rm -f ~/.netrc
+echo "machine code.rdkcentral.com login fred.bloggs@bloggs.com password swordfish" > ~/.netrc
+chmod og-rwx ~/.netrc
 
-${WORKDIR}:
-	mkdir -p ${WORKDIR}
+# Download and install repo
+mkdir ~/bin
+export PATH=~/bin:$PATH
 
-${WORKDIR}/setup.sh: ${WORKDIR}
-	cp setup.sh ${WORKDIR}
-
-${WORKDIR}/build.sh: ${WORKDIR}
-	cp build.sh ${WORKDIR}
-
-# Dockerfile from template, just a copy for now may have subfiles/templates later
-# Copies license header too which might not be ideal (meh)
-${DOCKERFILE}: Dockerfile.template
-	cp $< $@
-
-# Convenience target (You don't have to use this, just copy the command if preferred)
-image: ${DOCKERFILE}
-	docker build -t rdkb-ubuntu-20-04 .
-
-# Convenience target (You don't have to use this, just copy the command if preferred)
-run: ${WORKDIR}
-	docker run -it --rm --mount type=bind,src=${WORKDIR},dst=/home/rdkb/Builds rdkb-ubuntu-20-04
-
-# Clean it all up!
-clean:
-	rm -rf ${WORKDIR} ${DOCKERFILE}
-
-# Build docker file and setup host Build folder to be bind mounted to container
-all: ${DOCKERFILE} ${SETUP}
-
-
+curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+chmod a+x ~/bin/repo
