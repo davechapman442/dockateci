@@ -60,7 +60,7 @@ e.g. NAME="Fred Bloggs" EMAIL="fred.bloggs@fred.com" PASSWORD="Swordfish442" sh 
 ```text
 dockateci/
 ├── Makefile
-│   Dockerfile.template
+├── Dockerfile.template
 ├── docker_install.sh
 ├── build.sh
 ├── setup.sh
