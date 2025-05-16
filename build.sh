@@ -32,4 +32,5 @@ repo init -u https://code.rdkcentral.com/r/rdkcmf/manifests -b rdkb-2025q1-kirks
 repo sync -j`nproc` --no-clone-bundle
 # Set the build config & build with bitbake
 MACHINE=bananapi4-rdk-broadband BPI_IMG_TYPE=nand source meta-cmf-bananapi/setup-environment-refboard-rdkb
+# Rut bitbake to build the image
 bitbake rdk-generic-broadband-image

@@ -53,6 +53,16 @@ e.g. NAME="Fred Bloggs" EMAIL="fred.bloggs@fred.com" PASSWORD="Swordfish442" sh 
 
 # This will set up your git config, netrc file, download repo
 # You can now run the build.sh file, OR (recommended) use the commands within individually
+
+# Grab the manifest
+repo init -u https://code.rdkcentral.com/r/rdkcmf/manifests -b rdkb-2025q1-kirkstone -m rdkb-bpi-extsrc.xml
+# Checkout build essentials (Yocto 4.0 from OpenEmbedded) and bitbake recipes for everything else
+repo sync -j`nproc` --no-clone-bundle
+# Set the build config & build with bitbake
+MACHINE=bananapi4-rdk-broadband BPI_IMG_TYPE=nand source meta-cmf-bananapi/setup-environment-refboard-rdkb
+# Rut bitbake to build the image
+bitbake rdk-generic-broadband-image
+
 ```
 
 ## 📂 Project Structure
