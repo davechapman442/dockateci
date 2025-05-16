@@ -25,18 +25,34 @@
 ## 🚀 Getting Started
 
 ```bash
+# Install docker, and (ideally) set up for non root usage
+Please follow instructions in docker_install.sh
+
 # Clone the repository
 git clone https://github.com/your-username/dockateci.git
 cd dockateci
 
-# Build the Docker image for RDK-B 2025Q1
-./build.sh rdkb-2025q1
+# Build the Docker file and host directory for RDK-B 2025Q1
+make
 
-# Enter the container environment
-./enter.sh rdkb-2025q1
-```
+# Build the Docker image
+make image
 
-*You can now build RDK-B from inside the containerized environment.*
+# Run the docker image, mounting the host Build folder
+make run
+
+*You must now configure the build environment from within the running container.*
+
+# From within the docker shell (currently each time you restart the container)
+cd Builds
+NAME="<my name>" EMAIL="<my name>" PASSWORD="<my password>" sh ./setup.sh
+
+e.g. NAME="Fred Bloggs" EMAIL="fred.bloggs@fred.com" PASSWORD="Swordfish442" sh ./setup.sh
+
+The email and password matches your login on code.rdkcentral.com
+
+This will set up your git config, netrc file, download repo
+You can now run the build.sh file, OR (recommended) use the commands within individually
 
 ---
 
@@ -44,10 +60,11 @@ cd dockateci
 
 ```text
 dockateci/
-├── Dockerfiles/
-│   └── rdkb-2025q1.Dockerfile
+├── Makefile
+│   Dockerfile.template
+├── docker_install.sh
 ├── build.sh
-├── enter.sh
+├── setup.sh
 ├── README.md
 └── LICENSE
 ```
@@ -57,7 +74,7 @@ dockateci/
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).  
-© 2025 Your Name
+© 2025 Dave Chapman
 
 ---
 
@@ -65,8 +82,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 - [ ] Add support for **RDK-V** and **RDK-E**
 - [ ] Add support for **OpenWRT** and **prplOS**
-- [ ] Expand version coverage (e.g. RDK-B 2025Q2, etc.)
-- [ ] Improve portability and CI integration
+- [ ] Expand or confirm version coverage (e.g. RDK-B 2024q4, etc.)
 
 ---
 

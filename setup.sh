@@ -24,18 +24,62 @@
 # Setup container environment for builds
 # We'll turn this into a makefile with variables, defaults, warnings and perhaps input if not set!
 
+# We expect the following arguments:
+
+# NAME=name e.g. "Fred Bloggs"
+# EMAIL=email e.g. "fred.bloggs@bloggs.com"
+# PASSWORD=password e.g. "MySecret"
+
+# Test NAME is set
+if [ -z "$NAME" ]; then
+    # Error, name is empty
+    echo "Name is not set"
+    exit
+else
+    # Variable is not empty
+    echo "Name: $NAME"
+fi
+
+# Test EMAIL is set
+if [ -z "$EMAIL" ]; then
+    # Error, email is not set
+    echo "Email is not set"
+    exit
+else
+    # Variable is not empty
+    echo "Email: $EMAIL"
+fi
+
+# Test PASSWORD is set
+if [ -z "$PASSWORD" ]; then
+    # Error, email is not set
+    echo "Password is not set"
+    exit
+else
+    # Variable is not empty
+    echo "Password: $PASSWORD"
+fi
+
 # Set git config (please supply your user name and email, example below)
-git config --global user.name  "Fred Bloggs"
-git config --global user.email "fred.bloggs@bloggs.com"
+
+echo "Setting up git config"
+git config --global user.name  "$NAME"
+git config --global user.email "$EMAIL"
 
 # Set your netrc for rdkcentral login
+
+echo "Creating .netrc"
 rm -f ~/.netrc
-echo "machine code.rdkcentral.com login fred.bloggs@bloggs.com password swordfish" > ~/.netrc
+echo "machine code.rdkcentral.com login" $EMAIL "password" $PASSWORD > ~/.netrc
 chmod og-rwx ~/.netrc
 
 # Download and install repo
-mkdir ~/bin
+echo "Setting up repo"
+mkdir -p ~/bin
+rm -f ~/bin/repo
 export PATH=~/bin:$PATH
 
 curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
 chmod a+x ~/bin/repo
+
+echo "Done you're ready to build!"
