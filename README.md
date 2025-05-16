@@ -45,7 +45,7 @@ make run
 
 # From within the docker shell (currently each time you restart the container)
 cd Builds
-NAME="<my name>" EMAIL="<my name>" PASSWORD="<my password>" sh ./setup.sh
+NAME="<my name>" EMAIL="<my name>" PASSWORD="<my password>" source ./setup.sh
 
 e.g. NAME="Fred Bloggs" EMAIL="fred.bloggs@fred.com" PASSWORD="Swordfish442" sh ./setup.sh
 
