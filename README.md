@@ -26,7 +26,7 @@
 
 ```bash
 # Install docker, and (ideally) set up for non root usage
-Please follow instructions in docker_install.sh
+# Please follow instructions in docker_install.sh
 
 # Clone the repository
 git clone https://github.com/your-username/dockateci.git
@@ -49,12 +49,11 @@ NAME="<my name>" EMAIL="<my name>" PASSWORD="<my password>" sh ./setup.sh
 
 e.g. NAME="Fred Bloggs" EMAIL="fred.bloggs@fred.com" PASSWORD="Swordfish442" sh ./setup.sh
 
-The email and password matches your login on code.rdkcentral.com
+# The email and password matches your login on code.rdkcentral.com
 
-This will set up your git config, netrc file, download repo
-You can now run the build.sh file, OR (recommended) use the commands within individually
-
----
+# This will set up your git config, netrc file, download repo
+# You can now run the build.sh file, OR (recommended) use the commands within individually
+```
 
 ## 📂 Project Structure
 
