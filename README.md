@@ -47,7 +47,7 @@ make run
 cd Builds
 NAME="<my name>" EMAIL="<my name>" PASSWORD="<my password>" source ./setup.sh
 
-e.g. NAME="Fred Bloggs" EMAIL="fred.bloggs@fred.com" PASSWORD="Swordfish442" sh ./setup.sh
+e.g. NAME="Fred Bloggs" EMAIL="fred.bloggs@fred.com" PASSWORD="Swordfish442" source ./setup.sh
 
 # The email and password matches your login on code.rdkcentral.com
 
