@@ -1,0 +1,58 @@
+
+# MIT License
+# 
+# Copyright (c) 2025 Dave Chapman
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# Base Ubuntu 20.04
+FROM ubuntu:20.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install dependencies for RDK-B (locale)
+RUN apt-get update && apt-get install -y \
+  locales
+  
+# Set the locale
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
+    locale-gen
+    
+ENV LANG=en_US.UTF-8  
+ENV LANGUAGE=en_US:en  
+ENV LC_ALL=en_US.UTF-8
+
+# Install dependencies for RDK-B (build)
+RUN apt-get update && apt-get install -y \
+  locales gawk wget git-core diffstat unzip texinfo gcc-multilib \
+  build-essential chrpath socat cpio python python3 python3-pip python3-pexpect \
+  xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev \
+  pylint3 xterm bmap-tools zstd liblz4-tool \
+  git cmake autoconf texinfo openjdk-8-jdk openjdk-8-jre \
+  m4 libtool libtool-bin curl pkg-config lib32z1 doxygen \
+  && rm -rf /var/lib/apt/lists/*
+
+# Set a non-root user (optional, but recommended)
+RUN useradd -ms /bin/bash rdkb
+USER rdkb
+WORKDIR /home/rdkb
+
+# Default shell
+CMD ["/bin/bash"]
+
