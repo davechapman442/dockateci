@@ -40,9 +40,16 @@ git checkout openwrt-24.10
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 
-# Configure the build, select MediaTek ARM (target) for BananaPi
+# Configure the build
 # More instructions here: https://openwrt.org/docs/guide-developer/toolchain/use-buildsystem#menuconfig
 make menuconfig
+# Select according to your platform e.g. for Banana Pi R4
+
+# Target = MediaTek ARM
+# Sub Target = Filogic 8x0 (MT798x)
+# Target Profile = Banana Pi R4
+
+# Save, you can cache your .config somewhere if you wish
 
 # Build everything from scratch
 make -j1 defconfig download clean world

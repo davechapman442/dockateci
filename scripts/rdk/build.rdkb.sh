@@ -34,3 +34,5 @@ repo sync -j`nproc` --no-clone-bundle
 MACHINE=bananapi4-rdk-broadband BPI_IMG_TYPE=nand source meta-cmf-bananapi/setup-environment-refboard-rdkb
 # Rut bitbake to build the image
 bitbake rdk-generic-broadband-image
+
+# See images; ls ./tmp/deploy/images/bananapi4-rdk-broadband/ -l
