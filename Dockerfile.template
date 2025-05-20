@@ -54,6 +54,9 @@ RUN apt-get update && apt-get install -y build-essential clang flex bison g++ ga
   gcc-multilib g++-multilib gettext git libncurses-dev libssl-dev \
   python3-distutils python3-setuptools rsync swig unzip zlib1g-dev file wget
 
+# Install "useful" dev tools
+RUN apt-get update && apt-get install -y vim
+
 # Set a non-root user (optional, but recommended)
 RUN useradd -ms /bin/bash dockateci
 USER dockateci
