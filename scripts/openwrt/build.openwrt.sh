@@ -21,16 +21,36 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Build runes for RDK-B (2025q1) for the Banana Pi (ref platform) NAND build (SDCARD at some point)
+# Build runes for OpenWRT (24.10) configuration through make menu config
 # We'll turn this into a makefile with variables, defaults, warnings and perhaps input if not set!
+
+# More instructions here: https://openwrt.org/docs/guide-developer/toolchain/use-buildsystem
 
 # You don't necessary want to run this script, but good for reference
 
-# Grab the manifest
-repo init -u https://code.rdkcentral.com/r/rdkcmf/manifests -b rdkb-2025q1-kirkstone -m rdkb-bpi-extsrc.xml
-# Checkout build essentials (Yocto 4.0 from OpenEmbedded) and bitbake recipes for everything else
-repo sync -j`nproc` --no-clone-bundle
-# Set the build config & build with bitbake
-MACHINE=bananapi4-rdk-broadband BPI_IMG_TYPE=nand source meta-cmf-bananapi/setup-environment-refboard-rdkb
-# Rut bitbake to build the image
-bitbake rdk-generic-broadband-image
+# Clone the OpenWRT repo
+git clone https://git.openwrt.org/openwrt/openwrt.git
+cd openwrt
+git pull
+
+# Checkout out the 24.10 release
+git checkout openwrt-24.10
+
+# Update & install feeds (buildroot)
+./scripts/feeds update -a
+./scripts/feeds install -a
+
+# Configure the build
+# More instructions here: https://openwrt.org/docs/guide-developer/toolchain/use-buildsystem#menuconfig
+make menuconfig
+# Select according to your platform e.g. for Banana Pi R4
+
+# Target = MediaTek ARM
+# Sub Target = Filogic 8x0 (MT798x)
+# Target Profile = Banana Pi R4
+
+# Save, you can cache your .config somewhere if you wish
+
+# Build everything from scratch
+make -j1 defconfig download clean world
+# Resulting image under bin/target
