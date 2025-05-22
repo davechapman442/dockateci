@@ -2,7 +2,13 @@
 
 **dockateci** is a Docker-based tool that simplifies the build process for complex open source device stacks like **RDK-B**, **RDK-V/E**, **OpenWRT**, and **prplOS** by creating consistent, reproducible Docker images tailored for these environments.
 
-> ⚠️ Currently supports **RDK-B (2501q1 confirmed) and OpenWRT (24.10 confirmed)**. Support for other stacks, versions, and platforms is planned.
+> ⚠️ Currently supports:
+RDK-B (2501q1 Banana Pi R4 - confirmed),
+OpenWRT (24.10 Banana Pi R4 - confirmed, 23.05 should work BPi R3),
+prplOS (3.2.0 Banana Pi R3 - confirmed),
+RDV (6.1 Raspberry Pi R4 - confirmed),
+
+Support for other stacks, versions, and platforms is planned.
 
 ---
 
@@ -32,6 +38,8 @@
 git clone https://github.com/davechapman442/dockateci.git
 cd dockateci
 
+# Show available make targets
+make help
 # Build the Docker file and host directory for supported Targets
 make
 
@@ -50,12 +58,14 @@ NAME="<my name>" EMAIL="<my name>" PASSWORD="<my password>" source ./setup.sh
 
 e.g. NAME="Fred Bloggs" EMAIL="fred.bloggs@fred.com" PASSWORD="Swordfish442" source ./setup.sh
 
-# The email and password matches your login on code.rdkcentral.com
+# The email and password matches your login on code.rdkcentral.com, password only relevant for RDKx builds
 
 # This will set up your git config, netrc file, download repo etc
 # You can now run the a build.<target>.sh file, OR (recommended) use the commands within individually
 
 # cd RDKB or
+# cd RDKV or
+# cd PrplOS or
 # cd OpenWRT
 
 # For example (RDKB)
@@ -86,8 +96,14 @@ dockateci/
     ├── setup.sh
     ├── rdk/
     	├── build.rdkb.sh
+	└── build.rdkv.sh
     ├── openwrt/
-    	├── build.openwrt.sh
+	└── build.openwrt.sh
+    └── prplos/
+        ├── yml/
+	    ├── bpi_r3.yml
+	    └── bpi_r4.yml
+	└── build.prplos.sh
 └── LICENSE
 ```
 
@@ -102,8 +118,9 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 🛣 Roadmap
 
-- [ ] Add support for **RDK-V** and **RDK-E (RDK 7)**
-- [ ] Add support for **prplOS**
+- [ ] Add support for RDK-E (RDK 7) when available
+- [ ] Add support for prpl 4.1.0 on Banana Pi R4 when available
+- [ ] Add developer help files/guidelines including rebuild/dev cycle, VS Code integration etc
 - [ ] Expand or confirm version coverage (e.g. RDK-B 2024q4, etc.)
 
 ---

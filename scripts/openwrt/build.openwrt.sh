@@ -22,11 +22,10 @@
 # SOFTWARE.
 
 # Build runes for OpenWRT (24.10) configuration through make menu config
-# We'll turn this into a makefile with variables, defaults, warnings and perhaps input if not set!
 
 # More instructions here: https://openwrt.org/docs/guide-developer/toolchain/use-buildsystem
 
-# You don't necessary want to run this script, but good for reference
+# You don't necessary want to run this script, but use for reference only
 
 # Clone the OpenWRT repo
 git clone https://git.openwrt.org/openwrt/openwrt.git
@@ -34,7 +33,7 @@ cd openwrt
 git pull
 
 # Checkout out the 24.10 release
-git checkout openwrt-24.10
+git checkout openwrt-24.10 # (openwrt-23.05 should also work, but supports Banana Pi R3 not R4)
 
 # Update & install feeds (buildroot)
 ./scripts/feeds update -a
@@ -47,7 +46,7 @@ make menuconfig
 
 # Target = MediaTek ARM
 # Sub Target = Filogic 8x0 (MT798x)
-# Target Profile = Banana Pi R4
+# Target Profile = Banana Pi R4 (R3 for 23.05 builds)
 
 # Save, you can cache your .config somewhere if you wish
 

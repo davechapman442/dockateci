@@ -24,11 +24,24 @@
 # Default rule (all)
 all:
 
+help:
+	@ echo "* Dockateci available target *:"
+	@ echo ""
+	@ echo "all (default) : Build Dockerfile, create build folder, and populate with scripts"
+	@ echo "image         : Create docker image for building supporting stacks"
+	@ echo "run           : Run docker image for build supported stacks"
+	@ echo "clean         : Remove build folder (recursive)"
+	@ echo "clean_scripts : Remove scripts from build folder"
+
+
 # Set build folder and Dockerfile name
 WORKDIR 	?= ${PWD}/Builds
 
 RDKB_DIR 	:= ${WORKDIR}/RDKB
+RDKV_DIR	:= ${WORKDIR}/RDKV
+
 OPENWRT_DIR 	:= ${WORKDIR}/OpenWRT
+PRPLOS_DIR	:= ${WORKDIR}/prplOS
 
 DOCKERFILE 	:= Dockerfile
 IMAGE		:= dockateci-ubuntu-20-04
@@ -38,20 +51,24 @@ SETUP := \
 	${WORKDIR}/setup.sh \
 	${WORKDIR}/README.dockateci \
 	${RDKB_DIR}/build.rdkb.sh \
-	${OPENWRT_DIR}/build.openwrt.sh
+	${RDKV_DIR}/build.rdkv.sh \
+	${OPENWRT_DIR}/build.openwrt.sh \
+	${PRPLOS_DIR}/build.prplos.sh \
+	${PRPLOS_DIR}/bpi_r3.yml \
+	${PRPLOS_DIR}/bpi_r4.yml
 
 # Create build folder and general help files
 ${WORKDIR}:
 	mkdir -p ${WORKDIR}
 
 ${WORKDIR}/README.dockateci: ${WORKDIR} README.md
-	cp README.md ${WORKDIR}/README.dockateci
+	cp README.md $@
 
 # Create target build folders and copy over build scripts
 
 # General setup (for all builds)
 ${WORKDIR}/setup.sh: ${WORKDIR} scripts/setup.sh
-	cp scripts/setup.sh ${WORKDIR}
+	cp scripts/setup.sh $@
 
 # RDKB
 ${RDKB_DIR}:
@@ -60,12 +77,32 @@ ${RDKB_DIR}:
 ${RDKB_DIR}/build.rdkb.sh: ${RDKB_DIR} scripts/rdk/build.rdkb.sh
 	cp scripts/rdk/build.rdkb.sh $@
 
+# RDKV
+${RDKV_DIR}:
+	mkdir -p ${RDKV_DIR}
+
+${RDKV_DIR}/build.rdkv.sh: ${RDKV_DIR} scripts/rdk/build.rdkv.sh
+	cp scripts/rdk/build.rdkv.sh $@
+
 # OpenWRT
 ${OPENWRT_DIR}:
 	mkdir -p ${OPENWRT_DIR}
 
 ${OPENWRT_DIR}/build.openwrt.sh: ${OPENWRT_DIR} scripts/openwrt/build.openwrt.sh
 	cp scripts/openwrt/build.openwrt.sh $@
+
+# prplOS
+${PRPLOS_DIR}:
+	mkdir -p ${PRPLOS_DIR}
+
+${PRPLOS_DIR}/build.prplos.sh: ${PRPLOS_DIR} scripts/prplos/build.prplos.sh
+	cp scripts/prplos/build.prplos.sh $@
+
+${PRPLOS_DIR}/bpi_r3.yml: ${PRPLOS_DIR} scripts/prplos/yml/bpi_r3.yml
+	cp scripts/prplos/yml/bpi_r3.yml $@
+
+${PRPLOS_DIR}/bpi_r4.yml: ${PRPLOS_DIR} scripts/prplos/yml/bpi_r4.yml
+	cp scripts/prplos/yml/bpi_r4.yml $@
 
 # Dockerfile from template, just a copy for now may have subfiles/templates later
 # Copies license header too which might not be ideal (meh)
@@ -82,11 +119,14 @@ image_rm:
 
 # Convenience target (You don't have to use this, just copy the command if preferred)
 run: ${WORKDIR}
-	docker run -it --rm --mount type=bind,src=${WORKDIR},dst=/home/dockateci/Builds ${IMAGE}
+	docker run -it --rm --mount type=bind,src=${WORKDIR},dst=/home/dockateci/Builds --mount type=bind,src=${HOME}/.ssh,dst=/home/dockateci/.ssh ${IMAGE}
 
 # Clean it all up!
 clean:
 	rm -rf ${WORKDIR} ${DOCKERFILE}
+
+clean_scripts:
+	rm -f ${SETUP}
 
 # Build docker file and setup host Build folder to be bind mounted to container
 all: ${DOCKERFILE} ${SETUP}

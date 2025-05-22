@@ -21,22 +21,25 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Build runes for RDK-B (2025q1) for the Banana Pi (ref platform) NAND build (SDCARD at some point)
+# Build runes for RDK-V (6.1.0) for Raspberry Pi R4
 
-# MAKE SURE YOU HAVE RUN setup.sh first!!!! see README.dockateci
+# You don't necessary want to run this script, but good for reference
 
-# You don't necessary want to run this script, but use for reference only
+# From: https://wiki.rdkcentral.com/pages/viewpage.action?spaceKey=RDK&title=Raspberry+Pi+4+RDK6.1+Release+Notes
+
+# NOTE: To build RDKV 6.1 you must be an RDK Licensee (https://wiki.rdkcentral.com/display/RDK/Licensees)
+# From RDK 7 onwards the Reference Board build (presently Raspberry Pi 4) will be fully Open Source
+
+# You must use your Personal Access Token (PAT) as your password
 
 # Grab the manifest
-repo init -u https://code.rdkcentral.com/r/rdkcmf/manifests -b rdkb-2025q1-kirkstone -m rdkb-bpi-extsrc.xml
-# Checkout build essentials (Yocto 4.0 from OpenEmbedded) and bitbake recipes for everything else
-repo sync -j`nproc` --no-clone-bundle
+repo init -u https://code.rdkcentral.com/r/manifests -b 6.1.0 -m rdkv-extsrc.xml
+# Check build essentials, layers and recipes
+repo sync --no-clone-bundle --no-tags
 # Set the build config & build with bitbake
-MACHINE=bananapi4-rdk-broadband BPI_IMG_TYPE=nand source meta-cmf-bananapi/setup-environment-refboard-rdkb
+MACHINE=raspberrypi4-64-rdk-android-hybrid source meta-cmf-raspberrypi/setup-environment
 # Run bitbake to build the image
-bitbake rdk-generic-broadband-image
-
-# See images; ls ./tmp/deploy/images/bananapi4-rdk-broadband/ -l
-
-# NOTE: To build TDK image
-# bitbake rdk-generic-broadband-tdk-image
+bitbake lib32-rdk-generic-hybrid-wpe-image
+  
+# To build tdk image
+bitbake lib32-rdk-generic-hybrid-wpe-tdk-image

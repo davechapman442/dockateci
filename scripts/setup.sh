@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Setup container environment for builds
+# Setup container environment for builds (Possibly only required for RDK builds)
 # We'll turn this into a makefile with variables, defaults, warnings and perhaps input if not set!
 
 # We expect the following arguments:
@@ -53,7 +53,7 @@ fi
 # Test PASSWORD is set
 if [ -z "$PASSWORD" ]; then
     # Error, email is not set
-    echo "Password is not set"
+    echo "Password is not set, set to PASSWORD or PAT"
     exit
 else
     # Variable is not empty

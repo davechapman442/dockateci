@@ -1,0 +1,30 @@
+# YML configuration file for Banana Pi R3 with prplOS
+# Supported in prplOS 3.2.0 (OpenWRT 23.05)
+
+# Must be copied into <prplos>/profiles
+
+# Usage:
+# ./scripts/gen_config.py list
+# ./scripts/gen_config.py bpi_r3 prpl debug  
+
+---
+profiles:
+  - bananapi_bpi-r3 
+target: mediatek
+subtarget: filogic
+device: bananapi_bpi-r3
+
+description: Build image for bananapi r3 
+
+# packages:
+
+# diffconfig: |
+
+# Should result in the following lines in your .config
+# cat .config | grep mediatek | grep -v '#'
+
+# CONFIG_TARGET_mediatek=y
+# CONFIG_TARGET_mediatek_filogic=y
+# CONFIG_TARGET_mediatek_filogic_DEVICE_bananapi_bpi-r3=y
+# CONFIG_TARGET_BOARD="mediatek"
+
