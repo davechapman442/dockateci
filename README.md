@@ -38,6 +38,8 @@ Support for other stacks, versions, and platforms is planned.
 git clone https://github.com/davechapman442/dockateci.git
 cd dockateci
 
+# Show available make targets
+make help
 # Build the Docker file and host directory for supported Targets
 make
 
