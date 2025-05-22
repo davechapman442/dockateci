@@ -118,7 +118,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 🛣 Roadmap
 
-- [ ] Add support RDK-E (RDK 7) when available
+- [ ] Add support for RDK-E (RDK 7) when available
 - [ ] Add support for prpl 4.1.0 on Banana Pi R4 when available
 - [ ] Add developer help files/guidelines including rebuild/dev cycle, VS Code integration etc
 - [ ] Expand or confirm version coverage (e.g. RDK-B 2024q4, etc.)
