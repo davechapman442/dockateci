@@ -6,7 +6,7 @@
 RDK-B (2501q1 Banana Pi R4 - confirmed),
 OpenWRT (24.10 Banana Pi R4 - confirmed, 23.05 should work BPi R3),
 prplOS (3.2.0 Banana Pi R3 - confirmed),
-RDV (6.1 Banana Pi R4 - confirmed),
+RDV (6.1 Raspberry Pi R4 - confirmed),
 
 Support for other stacks, versions, and platforms is planned.
 
@@ -116,8 +116,9 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 🛣 Roadmap
 
-- [ ] Add support for **RDK-V** and **RDK-E (RDK 7)**
-- [ ] Add support for **prplOS**
+- [ ] Add support RDK-E (RDK 7) when available
+- [ ] Add support for prpl 4.1.0 on Banana Pi R4 when available
+- [ ] Add developer help files/guidelines including rebuild/dev cycle, VS Code integration etc
 - [ ] Expand or confirm version coverage (e.g. RDK-B 2024q4, etc.)
 
 ---
