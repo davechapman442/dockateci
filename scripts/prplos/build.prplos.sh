@@ -30,7 +30,7 @@
 
 # Clone the prplOS repo
 git clone git@gitlab.com:prpl-foundation/prplos/prplos.git
-# You must have shared your public key with gitlab
+# You must have shared your public key with gitlab (Gitlab user preferences)
 # You host .ssh folder will be available (bind mounted) into the dockateci container home
 # If it works on the host, then it should work here!
 cd prplos
@@ -61,7 +61,7 @@ cat .config | grep mediatek | grep -v '#'
 make -j$(nproc)
 
 # Or simply make, if you don't want to fully occupy your machine/build machine
-# In case of failures, a more verbose take be invoked thus:
+# In case of failures, a more verbose make can be invoked thus:
 make -j1 V=sc
 
 # If successful build files are found thus (as with OpenWRT):

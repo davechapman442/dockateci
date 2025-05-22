@@ -22,9 +22,10 @@
 # SOFTWARE.
 
 # Build runes for RDK-B (2025q1) for the Banana Pi (ref platform) NAND build (SDCARD at some point)
-# We'll turn this into a makefile with variables, defaults, warnings and perhaps input if not set!
 
-# You don't necessary want to run this script, but good for reference
+# MAKE SURE YOU HAVE RUN setup.sh first!!!! see README.dockateci
+
+# You don't necessary want to run this script, but use for reference only
 
 # Grab the manifest
 repo init -u https://code.rdkcentral.com/r/rdkcmf/manifests -b rdkb-2025q1-kirkstone -m rdkb-bpi-extsrc.xml
@@ -32,7 +33,10 @@ repo init -u https://code.rdkcentral.com/r/rdkcmf/manifests -b rdkb-2025q1-kirks
 repo sync -j`nproc` --no-clone-bundle
 # Set the build config & build with bitbake
 MACHINE=bananapi4-rdk-broadband BPI_IMG_TYPE=nand source meta-cmf-bananapi/setup-environment-refboard-rdkb
-# Rut bitbake to build the image
+# Run bitbake to build the image
 bitbake rdk-generic-broadband-image
 
 # See images; ls ./tmp/deploy/images/bananapi4-rdk-broadband/ -l
+
+# NOTE: To build TDK image
+# bitbake rdk-generic-broadband-tdk-image

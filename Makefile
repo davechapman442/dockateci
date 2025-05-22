@@ -24,6 +24,16 @@
 # Default rule (all)
 all:
 
+help:
+	@ echo "* Dockateci available target *:"
+	@ echo ""
+	@ echo "all (default) : Build Dockerfile, create build folder, and populate with scripts"
+	@ echo "image         : Create docker image for building supporting stacks"
+	@ echo "run           : Run docker image for build supported stacks"
+	@ echo "clean         : Remove build folder (recursive)"
+	@ echo "clean_scripts : Remove scripts from build folder"
+
+
 # Set build folder and Dockerfile name
 WORKDIR 	?= ${PWD}/Builds
 

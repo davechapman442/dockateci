@@ -21,8 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Build runes for RDK-B (2025q1) for the Banana Pi (ref platform) NAND build (SDCARD at some point)
-# We'll turn this into a makefile with variables, defaults, warnings and perhaps input if not set!
+# Build runes for RDK-V (6.1.0) for Raspberry Pi R4
 
 # You don't necessary want to run this script, but good for reference
 
@@ -35,10 +34,11 @@
 
 # Grab the manifest
 repo init -u https://code.rdkcentral.com/r/manifests -b 6.1.0 -m rdkv-extsrc.xml
-repo sync --no-clone-bundle --no-tags 
-  
+# Check build essentials, layers and recipes
+repo sync --no-clone-bundle --no-tags
+# Set the build config & build with bitbake
 MACHINE=raspberrypi4-64-rdk-android-hybrid source meta-cmf-raspberrypi/setup-environment
-  
+# Run bitbake to build the image
 bitbake lib32-rdk-generic-hybrid-wpe-image
   
 # To build tdk image
