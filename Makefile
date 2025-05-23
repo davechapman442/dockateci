@@ -43,6 +43,8 @@ RDKV_DIR	:= ${WORKDIR}/RDKV
 OPENWRT_DIR 	:= ${WORKDIR}/OpenWRT
 PRPLOS_DIR	:= ${WORKDIR}/prplOS
 
+OBUSPA_DIR	:= ${WORKDIR}/OBUSPA
+
 DOCKERFILE 	:= Dockerfile
 IMAGE		:= dockateci-ubuntu-20-04
 
@@ -55,7 +57,8 @@ SETUP := \
 	${OPENWRT_DIR}/build.openwrt.sh \
 	${PRPLOS_DIR}/build.prplos.sh \
 	${PRPLOS_DIR}/bpi_r3.yml \
-	${PRPLOS_DIR}/bpi_r4.yml
+	${PRPLOS_DIR}/bpi_r4.yml \
+	${OBUSPA_DIR}/build.obuspa.sh
 
 # Create build folder and general help files
 ${WORKDIR}:
@@ -103,6 +106,13 @@ ${PRPLOS_DIR}/bpi_r3.yml: ${PRPLOS_DIR} scripts/prplos/yml/bpi_r3.yml
 
 ${PRPLOS_DIR}/bpi_r4.yml: ${PRPLOS_DIR} scripts/prplos/yml/bpi_r4.yml
 	cp scripts/prplos/yml/bpi_r4.yml $@
+
+# obuspa
+${OBUSPA_DIR}:
+	mkdir -p ${OBUSPA_DIR}
+
+${OBUSPA_DIR}/build.obuspa.sh: ${OBUSPA_DIR} scripts/obuspa/build.obuspa.sh
+	cp scripts/obuspa/build.obuspa.sh $@
 
 # Dockerfile from template, just a copy for now may have subfiles/templates later
 # Copies license header too which might not be ideal (meh)

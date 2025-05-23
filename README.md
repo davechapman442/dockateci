@@ -8,6 +8,8 @@ OpenWRT (24.10 Banana Pi R4 - confirmed, 23.05 should work BPi R3),
 prplOS (3.2.0 Banana Pi R3 - confirmed),
 RDV (6.1 Raspberry Pi R4 - confirmed),
 
+Support for OBUSPA native Linux build is also available.
+
 Support for other stacks, versions, and platforms is planned.
 
 ---
