@@ -1,0 +1,19 @@
+--- ./Makefile	2025-06-09 17:45:13.107103261 +0000
++++ ./Makefile.update	2025-06-09 17:44:36.011485395 +0000
+@@ -516,7 +516,7 @@
+ # Sub-makes are free to supplement AM_CFLAGS, e.g.
+ #         AM_CFLAGS += -Wno-error
+ # as necessary.
+-AM_CFLAGS = -Wall -Wfatal-errors
++# AM_CFLAGS = -Wall -Wfatal-errors
+ OBUSPA_LOCAL_STATE_DIR = "$(localstatedir)/obuspa"
+ 
+ # Source files in vendor
+@@ -2759,6 +2759,7 @@
+ # Add extra vendor specific CPP or LD flags below
+ 
+ # Import vendor makefile
++include ../../USPPA/obuspa_vendor.mk
+ 
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.

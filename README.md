@@ -90,23 +90,32 @@ bitbake rdk-generic-broadband-image
 
 ```text
 dockateci/
-├── README.md
-├── Makefile
+├── Dockerfile
 ├── Dockerfile.template
 ├── install_docker.sh
-├── scripts/
+├── LICENSE
+├── Makefile
+├── README.md
+└── scripts
+    ├── obuspa
+    │   └── build.obuspa.sh
+    ├── openwrt
+    │   └── build.openwrt.sh
+    ├── prplos
+    │   ├── build.prplos.sh
+    │   └── yml
+    │       ├── bpi_r3.yml
+    │       └── bpi_r4.yml
+    ├── rbus
+    │   └── build.rbus.sh
+    ├── rdk
+    │   ├── build.rdkb.sh
+    │   └── build.rdkv.sh
     ├── setup.sh
-    ├── rdk/
-    	├── build.rdkb.sh
-	└── build.rdkv.sh
-    ├── openwrt/
-	└── build.openwrt.sh
-    └── prplos/
-        ├── yml/
-	    ├── bpi_r3.yml
-	    └── bpi_r4.yml
-	└── build.prplos.sh
-└── LICENSE
+    └── usp-pa-vendor-rdk
+        ├── build.usppa.sh
+        ├── Makefile.usppa.patch
+        └── obuspa_vendor.mk
 ```
 
 ---
