@@ -28,13 +28,25 @@
 # You don't necessary want to run this script, but use for reference only
 
 # Grab the manifest
+# Banana Pi
 repo init -u https://code.rdkcentral.com/r/rdkcmf/manifests -b rdkb-2025q1-kirkstone -m rdkb-bpi-extsrc.xml
+# Raspberry Pi
+# repo init -u https://code.rdkcentral.com/r/rdkcmf/manifests -m rdkb-extsrc.xml -b rdkb-2025q1-kirkstone 
+
 # Checkout build essentials (Yocto 4.0 from OpenEmbedded) and bitbake recipes for everything else
 repo sync -j`nproc` --no-clone-bundle
+# Banana Pi
 # Set the build config & build with bitbake
 MACHINE=bananapi4-rdk-broadband BPI_IMG_TYPE=nand source meta-cmf-bananapi/setup-environment-refboard-rdkb
+# Raspberry Pi (32-bit)
+# MACHINE=raspberrypi4-rdk-broadband source meta-cmf-raspberrypi/setup-environment
+# Raspberry pi (64-bit)
+# MACHINE=raspberrypi4-64-rdk-broadband source meta-cmf-raspberrypi/setup-environment
+
 # Run bitbake to build the image
 bitbake rdk-generic-broadband-image
+# tdk
+# bitbake rdk-generic-broadband-tdk-image
 
 # See images; ls ./tmp/deploy/images/bananapi4-rdk-broadband/ -l
 

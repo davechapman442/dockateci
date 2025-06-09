@@ -45,6 +45,8 @@ PRPLOS_DIR	:= ${WORKDIR}/prplOS
 
 OBUSPA_DIR	:= ${WORKDIR}/OBUSPA
 
+RBUS_DIR	:= ${WORKDIR}/RBUS
+
 DOCKERFILE 	:= Dockerfile
 IMAGE		:= dockateci-ubuntu-20-04
 
@@ -58,7 +60,8 @@ SETUP := \
 	${PRPLOS_DIR}/build.prplos.sh \
 	${PRPLOS_DIR}/bpi_r3.yml \
 	${PRPLOS_DIR}/bpi_r4.yml \
-	${OBUSPA_DIR}/build.obuspa.sh
+	${OBUSPA_DIR}/build.obuspa.sh \
+	${RBUS_DIR}/build.rbus.sh
 
 # Create build folder and general help files
 ${WORKDIR}:
@@ -113,6 +116,13 @@ ${OBUSPA_DIR}:
 
 ${OBUSPA_DIR}/build.obuspa.sh: ${OBUSPA_DIR} scripts/obuspa/build.obuspa.sh
 	cp scripts/obuspa/build.obuspa.sh $@
+
+# rbus
+${RBUS_DIR}:
+	mkdir -p ${RBUS_DIR}
+
+${RBUS_DIR}/build.rbus.sh: ${RBUS_DIR} scripts/rbus/build.rbus.sh
+	cp scripts/rbus/build.rbus.sh $@
 
 # Dockerfile from template, just a copy for now may have subfiles/templates later
 # Copies license header too which might not be ideal (meh)
