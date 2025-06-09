@@ -44,8 +44,8 @@ OPENWRT_DIR 	:= ${WORKDIR}/OpenWRT
 PRPLOS_DIR	:= ${WORKDIR}/prplOS
 
 OBUSPA_DIR	:= ${WORKDIR}/OBUSPA
-
 RBUS_DIR	:= ${WORKDIR}/RBUS
+USPPA_DIR	:= ${WORKDIR}/USPPA
 
 DOCKERFILE 	:= Dockerfile
 IMAGE		:= dockateci-ubuntu-20-04
@@ -61,7 +61,10 @@ SETUP := \
 	${PRPLOS_DIR}/bpi_r3.yml \
 	${PRPLOS_DIR}/bpi_r4.yml \
 	${OBUSPA_DIR}/build.obuspa.sh \
-	${RBUS_DIR}/build.rbus.sh
+	${RBUS_DIR}/build.rbus.sh \
+	${USPPA_DIR}/build.usppa.sh \
+	${USPPA_DIR}/Makefile.usppa.patch \
+	${USPPA_DIR}/obuspa_vendor.mk
 
 # Create build folder and general help files
 ${WORKDIR}:
@@ -123,6 +126,19 @@ ${RBUS_DIR}:
 
 ${RBUS_DIR}/build.rbus.sh: ${RBUS_DIR} scripts/rbus/build.rbus.sh
 	cp scripts/rbus/build.rbus.sh $@
+
+# usppa
+${USPPA_DIR}:
+	mkdir -p ${USPPA_DIR}
+
+${USPPA_DIR}/build.usppa.sh: ${USPPA_DIR} scripts/usp-pa-vendor-rdk/build.usppa.sh
+	cp scripts/usp-pa-vendor-rdk/build.usppa.sh $@
+
+${USPPA_DIR}/Makefile.usppa.patch: ${USPPA_DIR} scripts/usp-pa-vendor-rdk/Makefile.usppa.patch
+	cp scripts/usp-pa-vendor-rdk/Makefile.usppa.patch $@
+
+${USPPA_DIR}/obuspa_vendor.mk: ${USPPA_DIR} scripts/usp-pa-vendor-rdk/obuspa_vendor.mk
+	cp scripts/usp-pa-vendor-rdk/obuspa_vendor.mk $@
 
 # Dockerfile from template, just a copy for now may have subfiles/templates later
 # Copies license header too which might not be ideal (meh)

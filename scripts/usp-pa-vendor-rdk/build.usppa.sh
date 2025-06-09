@@ -22,8 +22,9 @@
 
 # Build runes for usp_pa (RDK vendor integration for OBUSPA)
 # Ensure OBUSPA & RBUS are already built
+git clone git@github.com:rdkcentral/usp-pa-vendor-rdk.git
 touch usp-pa-vendor-rdk/src/vendor/vendor.c # Ensure newer than the default (empty) OBUSPA vendor integration
-cd ../../OBUSPA/obuspa
+cd ../OBUSPA/obuspa
 patch -p0 < ../../USPPA/Makefile.usppa.patch
 make
 
