@@ -1,0 +1,9 @@
+--- conf/bblayers.conf.orig	2025-10-14 10:20:56.909617690 +0000
++++ conf/bblayers.conf	2025-10-14 10:32:01.273454572 +0000
+@@ -56,3 +56,6 @@
+ BBLAYERS =+ "${RDKROOT}/meta-cmf"
+ BBLAYERS =+ "${RDKROOT}/meta-raspberrypi"
+ BBLAYERS =+ "${RDKROOT}/meta-rdk-opensync"
++BBLAYERS =+ "${RDKROOT}/meta-rdk-broadband-apps"
++BBLAYERS =+ "${RDKROOT}/meta-amx"
++BBLAYERS =+ "${RDKROOT}/meta-lcm"
