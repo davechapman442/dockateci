@@ -1,0 +1,23 @@
+diff --git a/recipes-rdkb/usp-pa/usp-pa.bb b/recipes-rdkb/usp-pa/usp-pa.bb
+index dc54761..2629adb 100644
+--- a/recipes-rdkb/usp-pa/usp-pa.bb
++++ b/recipes-rdkb/usp-pa/usp-pa.bb
+@@ -80,9 +80,18 @@ SYSTEMD_SERVICE_${PN} = "usp-pa.service"
+ 
+ ## Additional steps for DAC Distro Feature
+ DEPENDS += "${@bb.utils.contains('DISTRO_FEATURES', 'dac', 'rbus', '', d)}"
++DEPENDS += "rbus"
++
+ #add dependencies for the changes into compiler options
+ LDFLAGS += "${@bb.utils.contains('DISTRO_FEATURES', 'dac', ' -lrbus ', '', d)}"
++LDFLAGS += " -lrbus "
++
+ CFLAGS  += "${@bb.utils.contains('DISTRO_FEATURES', 'dac', ' -isystem${STAGING_INCDIR}/rbus ', '', d)}"
++CFLAGS += " -isystem${STAGING_INCDIR}/rbus "
++
+ TARGET_CFLAGS  += "${@bb.utils.contains('DISTRO_FEATURES', 'dac', ' -DINCLUDE_LCM_DATAMODEL ', '', d)}"
+ LDFLAGS += "${@bb.utils.contains('DISTRO_FEATURES', 'dac', ' -lrbuscore ', '', d)}"
++LDFLAGS += " -lrbuscore "
++
+ CFLAGS += "${@bb.utils.contains('DISTRO_FEATURES', 'dac', ' -I${STAGING_INCDIR}/rtmessage ', '', d)}"
++CFLAGS += " -I${STAGING_INCDIR}/rtmessage" 

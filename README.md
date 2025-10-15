@@ -67,6 +67,7 @@ e.g. NAME="Fred Bloggs" EMAIL="fred.bloggs@fred.com" PASSWORD="Swordfish442" sou
 
 # cd RDKB or
 # cd RDKV or
+# cd RDKB_APPS or
 # cd PrplOS or
 # cd OpenWRT
 
@@ -110,6 +111,7 @@ dockateci/
     │   └── build.rbus.sh
     ├── rdk
     │   ├── build.rdkb.sh
+    │   ├── build.rdkb.apps.lcm.sh
     │   └── build.rdkv.sh
     ├── setup.sh
     └── usp-pa-vendor-rdk

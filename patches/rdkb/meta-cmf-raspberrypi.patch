@@ -1,0 +1,13 @@
+diff --git a/conf/distro/include/rdk-rpi.inc b/conf/distro/include/rdk-rpi.inc
+index 9931879..a859464 100644
+--- a/conf/distro/include/rdk-rpi.inc
++++ b/conf/distro/include/rdk-rpi.inc
+@@ -175,7 +175,7 @@ DISTRO_FEATURES_append_extender = " rdkb_extender"
+ DISTRO_FEATURES_append_broadband = " core-net-lib"
+ 
+ # DKBDEV-1455 : Support Broadband DAC
+-DISTRO_FEATURES_append_broadband = " dac"
++# DISTRO_FEATURES_append_broadband = " dac"
+ 
+ # REFPLTB-1775: Sky team's fix for erouter0 IP issue
+ DISTRO_FEATURES_append_broadband = " RbusBuildFlagEnable"

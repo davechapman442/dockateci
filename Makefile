@@ -40,6 +40,9 @@ WORKDIR 	?= ${PWD}/Builds
 RDKB_DIR 	:= ${WORKDIR}/RDKB
 RDKV_DIR	:= ${WORKDIR}/RDKV
 
+RDKB_APPS_DIR	:= ${WORKDIR}/RDKB_APPS
+RDKB_APPS_PDIR  += ${RDKB_APPS_DIR}/patches
+
 OPENWRT_DIR 	:= ${WORKDIR}/OpenWRT
 PRPLOS_DIR	:= ${WORKDIR}/prplOS
 
@@ -56,6 +59,10 @@ SETUP := \
 	${WORKDIR}/README.dockateci \
 	${RDKB_DIR}/build.rdkb.sh \
 	${RDKV_DIR}/build.rdkv.sh \
+	${RDKB_APPS_DIR}/build.rdkb.apps.lcm.sh \
+	${RDKB_APPS_DIR}/patches/meta-cmf-raspberrypi.patch \
+	${RDKB_APPS_DIR}/patches/meta-rdk-broadband.patch \
+	${RDKB_APPS_DIR}/patches/bblayers.patch \
 	${OPENWRT_DIR}/build.openwrt.sh \
 	${PRPLOS_DIR}/build.prplos.sh \
 	${PRPLOS_DIR}/bpi_r3.yml \
@@ -92,6 +99,25 @@ ${RDKV_DIR}:
 
 ${RDKV_DIR}/build.rdkv.sh: ${RDKV_DIR} scripts/rdk/build.rdkv.sh
 	cp scripts/rdk/build.rdkv.sh $@
+
+# RDKB_APPS
+${RDKB_APPS_DIR}:
+	mkdir -p ${RDKB_APPS_DIR}
+
+${RDKB_APPS_PDIR}:
+	mkdir -p ${RDKB_APPS_PDIR}
+
+${RDKB_APPS_DIR}/build.rdkb.apps.lcm.sh: ${RDKB_APPS_DIR} scripts/rdk/build.rdkb.apps.lcm.sh
+	cp scripts/rdk/build.rdkb.apps.lcm.sh $@
+
+${RDKB_APPS_PDIR}/meta-cmf-raspberrypi.patch: ${RDKB_APPS_PDIR} patches/rdkb/meta-cmf-raspberrypi.patch
+	cp patches/rdkb/meta-cmf-raspberrypi.patch $@
+
+${RDKB_APPS_PDIR}/meta-rdk-broadband.patch: ${RDKB_APPS_PDIR} patches/rdkb/meta-rdk-broadband.patch
+	cp patches/rdkb/meta-rdk-broadband.patch $@
+
+${RDKB_APPS_PDIR}/bblayers.patch: ${RDKB_APPS_PDIR} patches/rdkb/bblayers.patch
+	cp patches/rdkb/bblayers.patch $@
 
 # OpenWRT
 ${OPENWRT_DIR}:
